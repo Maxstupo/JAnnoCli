@@ -7,4 +7,4 @@ JAnnoCli is a basic utility for simplifying commands via the console or any othe
 Online javadoc can be found [here](https://maxstupo.github.io/JAnnoCli/).
 
 #### Examples
-An example of how to use this library can be found [here](https://github.com/Maxstupo/CLILib/tree/master/src/example/com/github/maxstupo/jannocli).
+An example of how to use this library can be found [here](https://github.com/Maxstupo/JAnnoCli/tree/master/src/example/com/github/maxstupo/jannocli).
