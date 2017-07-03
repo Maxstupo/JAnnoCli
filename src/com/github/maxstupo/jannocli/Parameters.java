@@ -31,6 +31,10 @@ public class Parameters {
         return aliasLookup.get(alias);
     }
 
+    public <T> T get(int index, Class<T> type) {
+        return get(index, type, null);
+    }
+
     @SuppressWarnings("unchecked")
     public <T> T get(int index, Class<T> type, T defaultValue) {
         if (!has(index))
@@ -43,7 +47,7 @@ public class Parameters {
     }
 
     public String get(int index) {
-        return get(index, null);
+        return get(index, (String) null);
     }
 
     public String get(String alias, String defaultValue) {
@@ -122,6 +126,7 @@ public class Parameters {
         return get(index, boolean.class, defaultValue);
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static Parameters parse(String[] parameters, Class<?>[] types, String[] aliases) {
 
         Object[] arr = new Object[parameters.length];
@@ -131,7 +136,9 @@ public class Parameters {
             Class<?> type = i < types.length ? types[i] : null;
 
             if (type != null) {
-                if (Util.isAssignable(type, float.class)) {
+                if (type.isEnum()) {
+                    arr[i] = Enum.valueOf((Class<Enum>) type, value.toUpperCase());
+                } else if (Util.isAssignable(type, float.class)) {
                     arr[i] = Float.parseFloat(value);
                 } else if (Util.isAssignable(type, int.class)) {
                     arr[i] = Integer.parseInt(value);
@@ -159,7 +166,15 @@ public class Parameters {
             Class<?> type = types[i];
             String value = parameters[i];
 
-            if (Util.isAssignable(type, float.class)) {
+            if (type.isEnum()) {
+                boolean found = false;
+                for (Object obj : type.getEnumConstants()) {
+                    if (value.toLowerCase().equals(obj.toString().toLowerCase()))
+                        found = true;
+                }
+                if (!found)
+                    return false;
+            } else if (Util.isAssignable(type, float.class)) {
                 if (!Util.isFloat(value))
                     return false;
             } else if (Util.isAssignable(type, int.class)) {

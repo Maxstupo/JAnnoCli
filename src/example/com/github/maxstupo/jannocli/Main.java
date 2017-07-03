@@ -35,8 +35,10 @@ public class Main {
         }
 
         @Command(name = "Status", value = "status", aliases = "info", description = "Displays the client printer status.")
+        @ParamTypes({ Level.class })
+        @ParamDescription({ "The status level." })
         public void status(ExecutedCommand command) {
-
+            System.out.println(command.parameters.get(0, Level.class));
         }
 
         @Command(name = "Print", value = "print", description = "Print the given gcode file with the selected printer.")
@@ -57,4 +59,9 @@ public class Main {
 
     }
 
+    public static enum Level {
+        MINIMAL,
+        NORMAL,
+        DETAILED;
+    }
 }

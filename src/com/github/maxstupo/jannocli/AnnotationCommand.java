@@ -130,13 +130,7 @@ public class AnnotationCommand {
         if (paramDescriptions != null) {
             ps.println("Parameters:");
             for (int i = 0; i < paramDescriptions.length; i++) {
-                String value;
-                if (paramAliases != null && i < paramAliases.length) {
-                    value = paramAliases[i];
-                } else {
-                    value = i + "";
-                }
-                ps.println("  <" + value + ">" + " - " + paramDescriptions[i]);
+                ps.println("  <" + getParam(i) + ">" + " - " + paramDescriptions[i]);
             }
         }
     }
@@ -144,16 +138,28 @@ public class AnnotationCommand {
     public String getUsage() {
         String params = "";
         for (int i = 0; i < Math.max(paramTypes != null ? paramTypes.length : 0, paramAliases != null ? paramAliases.length : 0); i++) {
-            String value;
-            if (paramAliases != null && i < paramAliases.length) {
-                value = paramAliases[i];
-            } else {
-                value = i + "";
-            }
-            params += " <" + value + ">";
-
+            params += " <" + getParam(i) + ">";
         }
         return container.getKeyword() + " " + getKeyword() + "" + params;
+    }
+
+    private String getParam(int i) {
+        String value = "";
+        // If parameter type is enum, print each possible value.
+        if (i < paramTypes.length && paramTypes[i].isEnum()) {
+
+            for (Object obj : paramTypes[i].getEnumConstants())
+                value += obj.toString().toLowerCase() + "|";
+
+            value = value.substring(0, value.length() - 1);
+
+        } else if (paramAliases != null && i < paramAliases.length) {
+            value = paramAliases[i];
+
+        } else {
+            value = i + "";
+        }
+        return value;
     }
 
     @Override
