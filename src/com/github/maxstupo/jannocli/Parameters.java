@@ -183,6 +183,9 @@ public class Parameters {
             } else if (Util.isAssignable(type, long.class)) {
                 if (!Util.isLong(value))
                     return false;
+            } else if (Util.isAssignable(type, boolean.class)) {
+                if (!value.equalsIgnoreCase("false") && !value.equalsIgnoreCase("true"))
+                    return false;
             }
         }
         return true;

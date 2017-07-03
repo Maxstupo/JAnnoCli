@@ -29,7 +29,7 @@ public class Main {
     @Command(value = "client", aliases = "clients") // description and name are ignored for root command on class.
     public static class ClientCommand {
 
-        @Command(name = "List", description = "Display a list of clients connected.")
+        @Command(name = "List", description = "Display a list of clients connected.", hidden = true)
         public void list(ExecutedCommand command) {
             command.cli.println("Listing");
         }
@@ -50,11 +50,11 @@ public class Main {
         }
 
         @Command(name = "Select", value = "select", description = "Select a printer.")
-        @ParamTypes({ Integer.class })
+        @ParamTypes({ Integer.class, Boolean.class })
         @ParamAliases({ "id" })
         @ParamDescription({ "The id of the client." })
         public void select(ExecutedCommand command) {
-
+            System.out.println(command.parameters.getBoolean(1));
         }
 
     }

@@ -22,6 +22,7 @@ public class AnnotationCommand {
     private final String[] paramAliases;
     private final String[] paramDescriptions;
 
+    private final boolean hidden;
     private final String keyword;
     private final String[] aliases;
     private final String name;
@@ -34,9 +35,14 @@ public class AnnotationCommand {
         this.keyword = info.value();
         this.description = info.description();
         this.aliases = info.aliases();
+        this.hidden = info.hidden();
         this.paramDescriptions = (paramDescriptions != null) ? paramDescriptions.value() : new String[0];
         this.paramTypes = (filter != null) ? filter.value() : new Class[0];
         this.paramAliases = (paramAliases != null) ? paramAliases.value() : new String[0];
+    }
+
+    public boolean isHidden() {
+        return hidden;
     }
 
     public boolean invoke(IPrint ps, String[] parameters) {

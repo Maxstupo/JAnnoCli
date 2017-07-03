@@ -43,6 +43,8 @@ public class CommandLine extends Cli {
         int descWidth = 0;
         for (Entry<String, CommandContainer> entry : commands.entrySet()) {
             for (Entry<String, AnnotationCommand> entry2 : entry.getValue().getCommands().entrySet()) {
+                if (entry2.getValue().isHidden())
+                    continue;
                 usageWidth = Math.max(usageWidth, entry2.getValue().getUsage().length());
                 descWidth = Math.max(descWidth, entry2.getValue().getDescription().length());
             }
@@ -57,6 +59,8 @@ public class CommandLine extends Cli {
 
         for (Entry<String, CommandContainer> entry : commands.entrySet()) {
             for (Entry<String, AnnotationCommand> entry2 : entry.getValue().getCommands().entrySet()) {
+                if (entry2.getValue().isHidden())
+                    continue;
                 cmd.cli.println(String.format(" %-" + usageWidth + "s - %s", entry2.getValue().getUsage(), entry2.getValue().getDescription()));
             }
         }
