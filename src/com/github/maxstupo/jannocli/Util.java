@@ -8,8 +8,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
+ * This class provides helper methods used by JAnnoCli.
+ * 
  * @author Maxstupo
- *
  */
 public final class Util {
 
@@ -110,6 +111,15 @@ public final class Util {
         return false;
     }
 
+    /**
+     * Replaces '{n}' occurrences with {@link #toString()} of each object within the array.
+     * 
+     * @param msg
+     *            the string to replace references. '{0}, {1}, {2}, etc'
+     * @param args
+     *            the objects that the references will be replaced with.
+     * @return a string.
+     */
     public static String replaceReferences(String msg, Object... args) {
         if (args == null)
             return msg;
@@ -126,6 +136,15 @@ public final class Util {
         return msg;
     }
 
+    /**
+     * Repeats the given string the specified amount of times.
+     * 
+     * @param str
+     *            the string to repeat.
+     * @param times
+     *            the number of times to repeat.
+     * @return the repeated string.
+     */
     public static String strRepeat(String str, int times) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < times; i++)
@@ -133,10 +152,26 @@ public final class Util {
         return sb.toString();
     }
 
+    /**
+     * Returns an array shifted to the left.
+     * 
+     * @param num
+     *            the amount to shift left.
+     * @param arr
+     *            the array to shift.
+     * @return the shifted array.
+     */
     public static String[] shiftArray(int num, String[] arr) {
         return Arrays.copyOfRange(arr, num, arr.length);
     }
 
+    /**
+     * Split a string on each space. Spaces are ignored if within quotes.
+     * 
+     * @param text
+     *            the text to split.
+     * @return an array containing parts of the given string.
+     */
     public static String[] split(String text) {
         List<String> list = new ArrayList<>();
 

@@ -1,8 +1,11 @@
 package com.github.maxstupo.jannocli.response;
 
+import com.github.maxstupo.jannocli.CommandLine;
+
 /**
+ * The default responses used in {@link CommandLine}.
+ * 
  * @author Maxstupo
- *
  */
 public class DefaultResponses implements IResponses {
 

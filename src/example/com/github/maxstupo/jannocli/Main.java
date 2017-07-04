@@ -32,6 +32,7 @@ public class Main {
         @Command(name = "List", description = "Display a list of clients connected.", hidden = true)
         public void list(ExecutedCommand command) {
             command.cli.println("Listing");
+            command.parameters.getAliasIndex("adsk");
         }
 
         @Command(name = "Status", value = "status", aliases = "info", description = "Displays the client printer status.")
