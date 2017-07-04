@@ -48,7 +48,8 @@ public class Parameters {
      * @return the index for the given alias.
      */
     public int getAliasIndex(String alias) {
-        return aliasLookup.get(alias); // FIXME: NPE when alias doesn't exist.
+        Integer index = aliasLookup.get(alias);
+        return (index != null) ? index : -1;
     }
 
     /**
